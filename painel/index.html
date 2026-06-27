@@ -1,0 +1,43 @@
+<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Painel J.E. | Gerador de Contrato</title><link rel="stylesheet" href="../assets/css/style.css"></head><body>
+<header class="nav"><div class="container nav-inner"><a class="brand" href="../"><img src="../assets/images/logo.jpeg" alt="J.E. Diversões"><span>J.E. Diversões</span></a><nav class="nav-links"><a href="../">Home</a><a href="../formulario/">Formulário</a></nav></div></header>
+<main>
+<section class="page-hero"><div class="container"><span class="badge">🔒 Área J.E.</span><h1>Gerador de contrato</h1><p class="section-sub">Cole os dados enviados pelo cliente, preencha pacote, adicionais e financeiro. Depois gere o contrato para revisar, imprimir ou salvar em PDF.</p></div></section>
+<section><div class="container form-wrap">
+<form id="contractPanel" class="form-section">
+<h2>1. Dados recebidos do cliente</h2>
+<div class="fields"><div class="field full"><label>Resumo recebido pelo WhatsApp</label><textarea id="dadosCliente" rows="12" placeholder="Cole aqui o texto enviado pelo formulário do cliente"></textarea></div></div>
+<div class="actions"><button type="button" id="importarDados" class="btn btn-secondary">Importar dados</button></div>
+
+<h2>2. Dados do contrato</h2>
+<div class="fields">
+<div class="field"><label>Número do contrato</label><input id="contratoNumero" placeholder="Ex.: 011/2026"></div>
+<div class="field"><label>Data de emissão</label><input id="dataEmissao" type="date"></div>
+<div class="field"><label>Nome / Razão social</label><input id="cNome"></div>
+<div class="field"><label>CPF / CNPJ</label><input id="cDoc"></div>
+<div class="field"><label>Telefone</label><input id="cTel"></div>
+<div class="field"><label>E-mail</label><input id="cEmail"></div>
+<div class="field full"><label>Endereço do cliente / instalação</label><textarea id="cEndereco"></textarea></div>
+<div class="field full"><label>Endereço de retirada, se diferente</label><textarea id="cRetiradaEndereco"></textarea></div>
+<div class="field"><label>Data do evento</label><input id="cDataEvento" type="date"></div>
+<div class="field"><label>Horário de início</label><input id="cHoraInicio" type="time"></div>
+<div class="field"><label>Horário de retirada</label><input id="cHoraRetirada" type="time"></div>
+<div class="field"><label>Pacote contratado</label><select id="cPacote"><option>Bronze</option><option>Prata</option><option>Ouro</option></select></div>
+</div>
+
+<h2>3. Adicionais e financeiro</h2>
+<div class="fields">
+<div class="field full"><label>Adicionais contratados</label><div class="check-grid"><label><input type="checkbox" name="cAdicionais" value="TV"> TV</label><label><input type="checkbox" name="cAdicionais" value="Tripé para TV"> Tripé para TV</label><label><input type="checkbox" name="cAdicionais" value="Kit iluminação"> Kit iluminação</label><label><input type="checkbox" name="cAdicionais" value="Fliperama portátil + TV"> Fliperama portátil + TV</label></div></div>
+<div class="field"><label>Valor do pacote</label><input id="cValorPacote" type="number" step="0.01" placeholder="0,00"></div>
+<div class="field"><label>Valor dos adicionais</label><input id="cValorAdicionais" type="number" step="0.01" placeholder="0,00"></div>
+<div class="field"><label>Frete / deslocamento</label><input id="cValorFrete" type="number" step="0.01" placeholder="0,00"></div>
+<div class="field"><label>Desconto</label><input id="cDesconto" type="number" step="0.01" placeholder="0,00"></div>
+<div class="field"><label>Sinal / adiantamento</label><input id="cSinal" type="number" step="0.01" placeholder="0,00"></div>
+<div class="field"><label>Forma de pagamento</label><select id="cPagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option><option>A combinar</option></select></div>
+<div class="field full"><label>Observações internas</label><textarea id="cObs"></textarea></div>
+</div>
+<div class="actions"><button type="button" id="gerarContrato" class="btn btn-primary">Gerar contrato</button><button type="button" id="copiarContrato" class="btn btn-secondary">Copiar texto</button><button type="button" id="imprimirContrato" class="btn btn-whats">Imprimir / salvar PDF</button></div>
+</form>
+
+<div class="form-section contract-paper" id="contractPreview"><h2>Contrato gerado</h2><p class="section-sub">Preencha os campos e clique em <strong>Gerar contrato</strong>.</p></div>
+</div></section>
+</main><footer class="footer"><div class="container"><strong>J.E. Diversões</strong><br>Painel interno para apoio à emissão de contrato.</div></footer><script src="../assets/js/app.js"></script></body></html>
