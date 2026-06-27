@@ -11,7 +11,7 @@ Versão definitiva da base oficial do site da J.E. Diversões.
 - `formulario/` — formulário do cliente e ficha interna J.E.
 - `assets/css/` — estilos
 - `assets/js/` — scripts
-- `assets/images/` — imagens, feedbacks, recomendações e QR Codes
+- `assets/images/` — imagens, recomendações e QR Codes
 - `assets/videos/` — vídeos otimizados para GitHub Pages
 
 ## Publicação
@@ -29,3 +29,8 @@ https://jediversoes.github.io/site/
 ## Observação
 
 Nenhum arquivo desta versão ultrapassa 25 MB, para evitar erro de upload no GitHub.
+
+
+## Ajuste 1.0.1
+- Removida a área interna da página do cliente.
+- Feedbacks passam a aparecer em texto, sem imagens de print.
