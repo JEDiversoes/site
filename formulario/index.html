@@ -1,9 +1,54 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Cadastro de Locação | J.E. Diversões</title><link rel="stylesheet" href="../assets/css/style.css"></head><body>
-<header class="nav"><div class="container nav-inner"><a class="brand" href="../"><img src="../assets/images/logo.jpeg" alt="J.E. Diversões"><span>J.E. Diversões</span></a><nav class="nav-links"><a href="../">Home</a><a href="../#pacotes">Pacotes</a><a href="../#recomendacoes">Recomendações</a></nav></div></header>
-<main><section class="page-hero"><div class="container"><span class="badge">📝 Cadastro de locação</span><h1>Dados para contrato</h1><p class="section-sub">Esta página é para cliente que já fechou a locação. Preencha os dados abaixo para facilitar a elaboração do contrato e a organização da instalação.</p></div></section>
-<section><div class="container form-wrap"><form id="clientForm" class="form-section"><h2>1. Dados do cliente</h2><div class="fields"><div class="field"><label>Nome completo / Razão social</label><input id="nome" required></div><div class="field"><label>CPF / CNPJ</label><input id="documento"></div><div class="field"><label>Telefone / WhatsApp</label><input id="telefone"></div><div class="field"><label>E-mail</label><input id="email" type="email"></div></div><h2>2. Dados do evento</h2><div class="fields"><div class="field"><label>Data do evento</label><input id="dataEvento" type="date"></div><div class="field"><label>Horário de início</label><input id="horaInicio" type="time"></div><div class="field"><label>Horário de retirada</label><input id="horaRetirada" type="time"></div><div class="field"><label>Tipo de evento</label><select id="tipoEvento"><option>Aniversário</option><option>Confraternização</option><option>Evento familiar</option><option>Evento corporativo</option><option>Outro</option></select></div><div class="field"><label>Quantidade aproximada de convidados</label><input id="convidados" type="number" min="0"></div><div class="field"><label>Responsável presente na entrega</label><input id="responsavel" placeholder="Nome e telefone"></div><div class="field full"><label>Endereço de instalação</label><textarea id="enderecoInstalacao"></textarea></div><div class="field full"><label>Endereço de retirada, se for diferente</label><textarea id="enderecoRetirada"></textarea></div></div><h2>3. Preparação do local</h2><div class="fields"><div class="field"><label>A TV será</label><select id="tvChoice"><option value="TV contratada com a J.E.">TV contratada com a J.E.</option><option value="TV própria do cliente">TV própria do cliente</option><option value="Ainda será confirmado">Ainda será confirmado</option></select></div><div class="field"><label>Haverá mesa disponível?</label><select id="mesa"><option>Sim</option><option>Não</option><option>A confirmar</option></select></div><div class="field"><label>Tomada 110V próxima?</label><select id="tomada"><option>Sim</option><option>Não</option><option>A confirmar</option></select></div><div class="field"><label>Espaço está pronto para instalação?</label><select id="espaco"><option>Sim</option><option>Não</option><option>A confirmar</option></select></div><div class="field full"><div id="tvAlert" class="notice hidden">📺 Atenção: se a TV for do cliente, confirme antes da instalação se ela possui entrada HDMI funcionando.</div></div><div class="field full"><label>Observações do cliente</label><textarea id="obsCliente"></textarea></div></div><div class="actions"><button type="button" id="gerarCliente" class="btn btn-primary">Gerar resumo</button><button type="button" id="copiarCliente" class="btn btn-secondary">Copiar resumo</button><button type="button" id="enviarCliente" class="btn btn-whats">Enviar para WhatsApp</button></div><h3>Resumo do cliente</h3><div id="clientOutput" class="output"></div></form>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Cadastro de Locação | J.E. Diversões</title>
+<link rel="stylesheet" href="assets/css/style.css">
+</head>
+<body>
+<main class="wrap">
+  <section class="card">
+    <div class="brand">🎤 <b>J.E. Diversões</b></div>
+    <h1>Cadastro da locação</h1>
+    <p>Preencha os dados abaixo para facilitar a elaboração do contrato.</p>
 
-<div class="form-section"><h2>Recomendações para o cliente</h2><p class="section-sub">Após preencher os dados, o cliente deve estar ciente dos cuidados para que a instalação ocorra sem atrasos.</p><div class="rec-grid"><div class="card"><h3>Antes da instalação</h3><ul><li>Mesa reservada para o equipamento.</li><li>Tomada 110V próxima.</li><li>TV própria com HDMI funcionando, se aplicável.</li><li>Responsável presente para receber as orientações.</li></ul></div><div class="card"><h3>Durante o evento</h3><ul><li>Não alterar configurações.</li><li>Evitar líquidos próximos aos equipamentos.</li><li>Não bater, soprar ou gritar nos microfones.</li><li>Supervisionar crianças durante o uso.</li></ul></div></div><div class="success" style="margin-top:18px">✅ Ao finalizar o cadastro, o cliente declara ciência das recomendações acima.</div></div>
+    <div class="grid">
+      <label>Nome/Razão social<input id="nome"></label>
+      <label>CPF/CNPJ<input id="doc"></label>
+      <label>Telefone<input id="telefone"></label>
+      <label>E-mail<input id="email"></label>
+      <label>Endereço completo<input id="endereco"></label>
+      <label>Data do evento<input id="data" type="date"></label>
+      <label>Horário de início<input id="inicio" type="time"></label>
+      <label>Horário previsto de retirada<input id="retirada" type="time"></label>
+      <label>Local de instalação<input id="local"></label>
+      <label>Tipo de evento<input id="evento" placeholder="Aniversário, confraternização..."></label>
+      <label>A TV será:
+        <select id="tv">
+          <option>Contratada com a J.E.</option>
+          <option>Fornecida pelo cliente</option>
+          <option>A definir</option>
+        </select>
+      </label>
+      <label>Observações<textarea id="obs"></textarea></label>
+    </div>
 
-<div class="form-section"><h2>Cadastro concluído</h2><div class="success">✅ Dados preenchidos com sucesso. Agora, confira as recomendações para que a instalação ocorra de forma rápida e tranquila.</div><p class="section-sub" style="margin-top:14px">Caso precise ajustar alguma informação, fale conosco pelo WhatsApp.</p><div class="actions"><a class="btn btn-whats" data-whatsapp="Olá! Preenchi o cadastro da J.E. Diversões e gostaria de confirmar as informações.">Confirmar pelo WhatsApp</a><a class="btn btn-secondary" href="../">Voltar ao site</a></div></div></div></section></main>
-<a class="whats" data-whatsapp="Olá! Vim pelo formulário da J.E. Diversões.">💬 WhatsApp</a><footer class="footer"><div class="container"><strong>J.E. Diversões</strong><br>Cadastro de locação.</div></footer><script src="../assets/js/app.js"></script></body></html>
+    <div class="notice">
+      <b>Antes da instalação</b><br>
+      Deixe mesa, tomada e espaço disponíveis. Se a TV for própria, confirme entrada HDMI funcionando.
+    </div>
+
+    <div class="actions">
+      <button onclick="gerar()">Gerar dados para WhatsApp</button>
+      <button class="primary" onclick="enviarWhats()">Enviar para J.E.</button>
+    </div>
+
+    <h2>Dados gerados</h2>
+    <textarea id="saida" readonly placeholder="Os dados aparecerão aqui..."></textarea>
+    <button onclick="copiar()">Copiar dados</button>
+  </section>
+</main>
+<script src="assets/js/app.js"></script>
+</body>
+</html>

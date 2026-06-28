@@ -3,101 +3,41 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>J.E. Manager 3.0</title>
+<title>J.E. Manager 4.0</title>
 <link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
 <aside>
   <div class="logo"><span>🎤</span><div><b>J.E. Manager</b><small>Gestão de Locações</small></div></div>
   <button class="nav active" data-page="dashboard">Dashboard</button>
+  <button class="nav" data-page="importar">Importar Cadastro</button>
   <button class="nav" data-page="locacao">Nova Locação</button>
   <button class="nav" data-page="clientes">Clientes</button>
   <button class="nav" data-page="agenda">Agenda</button>
   <button class="nav" data-page="contratos">Contratos</button>
   <button class="nav" data-page="financeiro">Financeiro</button>
 </aside>
-
 <main>
-<header>
-  <div><h1 id="title">Dashboard</h1><p>Centro de gestão operacional da J.E. Diversões.</p></div>
-  <button class="primary" onclick="openPage('locacao')">+ Nova Locação</button>
-</header>
+<header><div><h1 id="title">Dashboard</h1><p>Centro de gestão da J.E. Diversões.</p></div><button class="primary" onclick="openPage('importar')">Importar cadastro</button></header>
 
-<section id="dashboard" class="page active">
- <div class="metrics">
-  <div><small>Locações</small><strong id="qtd">0</strong></div>
-  <div><small>Receita</small><strong id="receita">R$ 0,00</strong></div>
-  <div><small>Pendente</small><strong id="pendente">R$ 0,00</strong></div>
-  <div><small>Pacote líder</small><strong id="lider">-</strong></div>
- </div>
- <div class="panel"><h2>Próximas locações</h2><div id="prox"></div></div>
-</section>
+<section id="dashboard" class="page active"><div class="metrics"><div><small>Locações</small><strong id="qtd">0</strong></div><div><small>Receita</small><strong id="receita">R$ 0,00</strong></div><div><small>Pendente</small><strong id="pendente">R$ 0,00</strong></div><div><small>Pacote líder</small><strong id="lider">-</strong></div></div><div class="panel"><h2>Próximas locações</h2><div id="prox"></div></div></section>
 
-<section id="locacao" class="page">
- <div class="panel">
-  <h2>Assistente de Locação</h2>
-  <div class="steps"><span class="on">1 Cliente</span><span>2 Evento</span><span>3 Pacote</span><span>4 Financeiro</span><span>5 Resumo</span></div>
+<section id="importar" class="page"><div class="panel"><h2>Importar cadastro do WhatsApp</h2><p>Cole aqui a mensagem gerada pelo formulário do cliente.</p><textarea id="textoImportado" placeholder="#CADASTRO_JE..."></textarea><div class="actions"><button class="primary" onclick="importarCadastro()">Importar para Nova Locação</button></div></div></section>
 
-  <div class="step active">
-   <h3>1. Cliente</h3>
-   <div class="grid">
-    <label>Contrato<input id="contrato" placeholder="JE-2026-0001"></label>
-    <label>Nome/Razão social<input id="nome"></label>
-    <label>CPF/CNPJ<input id="doc"></label>
-    <label>Telefone<input id="telefone"></label>
-    <label>E-mail<input id="email"></label>
-    <label>Endereço<input id="endereco"></label>
-   </div>
-  </div>
+<section id="locacao" class="page"><div class="panel"><h2>Nova Locação</h2><div class="grid">
+<label>Contrato<input id="contrato" placeholder="JE-2026-0001"></label><label>Nome/Razão social<input id="nome"></label><label>CPF/CNPJ<input id="doc"></label><label>Telefone<input id="telefone"></label><label>E-mail<input id="email"></label><label>Endereço<input id="endereco"></label>
+<label>Data<input id="data" type="date"></label><label>Início<input id="inicio" type="time"></label><label>Retirada<input id="retirada" type="time"></label><label>Local<input id="local"></label><label>Tipo de evento<input id="evento"></label>
+<label>Pacote<select id="pacote" onchange="checklist()"><option>Bronze</option><option>Prata</option><option>Ouro</option></select></label>
+<label>Adicionais<select id="adicionais" multiple onchange="checklist()"><option>TV 43&quot;</option><option>TV 32&quot;</option><option>TV 24&quot;</option><option>Tripé para TV</option><option>Kit Iluminação</option><option>Fliperama + TV</option></select></label>
+<label>Valor pacote<input id="valorPacote" type="number" step="0.01"></label><label>Valor adicionais<input id="valorAdicionais" type="number" step="0.01" value="0"></label><label>Desconto<input id="desconto" type="number" step="0.01" value="0"></label><label>Sinal<input id="sinal" type="number" step="0.01" value="0"></label>
+<label>Pagamento<select id="pagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option></select></label><label>Status<select id="status"><option>Cadastro recebido</option><option>Contrato enviado</option><option>Sinal recebido</option><option>Evento realizado</option><option>Finalizado</option></select></label>
+<label>Condições especiais<textarea id="condicoes"></textarea></label>
+</div><h3>Checklist automático</h3><div id="checklist"></div><div class="actions"><button class="primary" onclick="save()">Salvar locação</button><button onclick="contract()">Gerar contrato</button></div></div></section>
 
-  <div class="step">
-   <h3>2. Evento</h3>
-   <div class="grid">
-    <label>Data<input id="data" type="date"></label>
-    <label>Início<input id="inicio" type="time"></label>
-    <label>Retirada<input id="retirada" type="time"></label>
-    <label>Local da instalação<input id="local"></label>
-    <label>Condições especiais<textarea id="condicoes"></textarea></label>
-   </div>
-  </div>
-
-  <div class="step">
-   <h3>3. Pacote e adicionais</h3>
-   <div class="grid">
-    <label>Pacote<select id="pacote" onchange="checklist()"><option>Bronze</option><option>Prata</option><option>Ouro</option></select></label>
-    <label>Adicionais<select id="adicionais" multiple onchange="checklist()"><option>TV 43&quot;</option><option>TV 32&quot;</option><option>TV 24&quot;</option><option>Tripé para TV</option><option>Kit Iluminação</option><option>Fliperama + TV</option></select></label>
-   </div>
-   <h4>Checklist automático</h4><div id="checklist"></div>
-  </div>
-
-  <div class="step">
-   <h3>4. Financeiro</h3>
-   <div class="grid">
-    <label>Valor pacote<input id="valorPacote" type="number" step="0.01"></label>
-    <label>Valor adicionais<input id="valorAdicionais" type="number" step="0.01" value="0"></label>
-    <label>Desconto<input id="desconto" type="number" step="0.01" value="0"></label>
-    <label>Sinal<input id="sinal" type="number" step="0.01" value="0"></label>
-    <label>Pagamento<select id="pagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option></select></label>
-    <label>Status<select id="status"><option>Cadastro recebido</option><option>Contrato enviado</option><option>Sinal recebido</option><option>Evento realizado</option><option>Finalizado</option></select></label>
-   </div>
-  </div>
-
-  <div class="step"><h3>5. Resumo</h3><div id="resumo" class="summary"></div></div>
-
-  <div class="actions">
-   <button onclick="prevStep()">Voltar</button>
-   <button onclick="nextStep()">Avançar</button>
-   <button class="primary" onclick="save()">Salvar Locação</button>
-   <button onclick="contract()">Gerar Contrato</button>
-  </div>
- </div>
-</section>
-
-<section id="clientes" class="page"><div class="panel"><h2>Clientes</h2><input id="busca" oninput="render()" placeholder="Pesquisar por nome ou telefone"><div id="clientesList"></div></div></section>
+<section id="clientes" class="page"><div class="panel"><h2>Clientes</h2><div id="clientesList"></div></div></section>
 <section id="agenda" class="page"><div class="panel"><h2>Agenda</h2><div id="agendaList"></div></div></section>
 <section id="contratos" class="page"><div class="panel"><h2>Contratos</h2><div id="contratosList"></div></div></section>
 <section id="financeiro" class="page"><div class="panel"><h2>Financeiro</h2><div id="financeiroList"></div></div></section>
-
 <section id="print" class="page"><div class="printbar"><button onclick="openPage('contratos')">Voltar</button><button class="primary" onclick="window.print()">Imprimir / PDF</button></div><article id="doc"></article></section>
 </main>
 <script src="assets/js/app.js"></script>
