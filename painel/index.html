@@ -1,43 +1,108 @@
-<!doctype html><html lang="pt-BR"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Painel J.E. | Gerador de Contrato</title><link rel="stylesheet" href="../assets/css/style.css"></head><body>
-<header class="nav"><div class="container nav-inner"><a class="brand" href="../"><img src="../assets/images/logo.jpeg" alt="J.E. Diversões"><span>J.E. Diversões</span></a><nav class="nav-links"><a href="../">Home</a><a href="../formulario/">Formulário</a></nav></div></header>
-<main>
-<section class="page-hero"><div class="container"><span class="badge">🔒 Área J.E.</span><h1>Gerador de contrato</h1><p class="section-sub">Cole os dados enviados pelo cliente, preencha pacote, adicionais e financeiro. Depois gere o contrato para revisar, imprimir ou salvar em PDF.</p></div></section>
-<section><div class="container form-wrap">
-<form id="contractPanel" class="form-section">
-<h2>1. Dados recebidos do cliente</h2>
-<div class="fields"><div class="field full"><label>Resumo recebido pelo WhatsApp</label><textarea id="dadosCliente" rows="12" placeholder="Cole aqui o texto enviado pelo formulário do cliente"></textarea></div></div>
-<div class="actions"><button type="button" id="importarDados" class="btn btn-secondary">Importar dados</button></div>
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>J.E. Manager | Sistema J.E. Diversões</title>
+  <link rel="stylesheet" href="assets/css/style.css" />
+</head>
+<body>
+  <aside class="sidebar">
+    <div class="brand">
+      <div class="brand-mark">🎤</div>
+      <div>
+        <strong>J.E. Manager</strong>
+        <span>Sistema de Gestão</span>
+      </div>
+    </div>
+    <button class="nav active" data-view="dashboard">Dashboard</button>
+    <button class="nav" data-view="nova">Nova Locação</button>
+    <button class="nav" data-view="clientes">Clientes</button>
+    <button class="nav" data-view="agenda">Agenda</button>
+    <button class="nav" data-view="contratos">Contratos</button>
+    <button class="nav" data-view="financeiro">Financeiro</button>
+  </aside>
 
-<h2>2. Dados do contrato</h2>
-<div class="fields">
-<div class="field"><label>Número do contrato</label><input id="contratoNumero" placeholder="Ex.: 011/2026"></div>
-<div class="field"><label>Data de emissão</label><input id="dataEmissao" type="date"></div>
-<div class="field"><label>Nome / Razão social</label><input id="cNome"></div>
-<div class="field"><label>CPF / CNPJ</label><input id="cDoc"></div>
-<div class="field"><label>Telefone</label><input id="cTel"></div>
-<div class="field"><label>E-mail</label><input id="cEmail"></div>
-<div class="field full"><label>Endereço do cliente / instalação</label><textarea id="cEndereco"></textarea></div>
-<div class="field full"><label>Endereço de retirada, se diferente</label><textarea id="cRetiradaEndereco"></textarea></div>
-<div class="field"><label>Data do evento</label><input id="cDataEvento" type="date"></div>
-<div class="field"><label>Horário de início</label><input id="cHoraInicio" type="time"></div>
-<div class="field"><label>Horário de retirada</label><input id="cHoraRetirada" type="time"></div>
-<div class="field"><label>Pacote contratado</label><select id="cPacote"><option>Bronze</option><option>Prata</option><option>Ouro</option></select></div>
-</div>
+  <main>
+    <header class="topbar">
+      <div>
+        <h1 id="pageTitle">Dashboard</h1>
+        <p>Controle operacional das locações da J.E. Diversões.</p>
+      </div>
+      <button class="primary" onclick="goView('nova')">+ Nova Locação</button>
+    </header>
 
-<h2>3. Adicionais e financeiro</h2>
-<div class="fields">
-<div class="field full"><label>Adicionais contratados</label><div class="check-grid"><label><input type="checkbox" name="cAdicionais" value="TV"> TV</label><label><input type="checkbox" name="cAdicionais" value="Tripé para TV"> Tripé para TV</label><label><input type="checkbox" name="cAdicionais" value="Kit iluminação"> Kit iluminação</label><label><input type="checkbox" name="cAdicionais" value="Fliperama portátil + TV"> Fliperama portátil + TV</label></div></div>
-<div class="field"><label>Valor do pacote</label><input id="cValorPacote" type="number" step="0.01" placeholder="0,00"></div>
-<div class="field"><label>Valor dos adicionais</label><input id="cValorAdicionais" type="number" step="0.01" placeholder="0,00"></div>
-<div class="field"><label>Frete / deslocamento</label><input id="cValorFrete" type="number" step="0.01" placeholder="0,00"></div>
-<div class="field"><label>Desconto</label><input id="cDesconto" type="number" step="0.01" placeholder="0,00"></div>
-<div class="field"><label>Sinal / adiantamento</label><input id="cSinal" type="number" step="0.01" placeholder="0,00"></div>
-<div class="field"><label>Forma de pagamento</label><select id="cPagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option><option>A combinar</option></select></div>
-<div class="field full"><label>Observações internas</label><textarea id="cObs"></textarea></div>
-</div>
-<div class="actions"><button type="button" id="gerarContrato" class="btn btn-primary">Gerar contrato</button><button type="button" id="copiarContrato" class="btn btn-secondary">Copiar texto</button><button type="button" id="imprimirContrato" class="btn btn-whats">Imprimir / salvar PDF</button></div>
-</form>
+    <section id="dashboard" class="view active">
+      <div class="cards">
+        <div class="card"><span>Locações</span><strong id="mLocacoes">0</strong></div>
+        <div class="card"><span>Receita prevista</span><strong id="mReceita">R$ 0,00</strong></div>
+        <div class="card"><span>Saldo pendente</span><strong id="mPendente">R$ 0,00</strong></div>
+        <div class="card"><span>Pacote mais usado</span><strong id="mPacote">-</strong></div>
+      </div>
+      <div class="panel">
+        <h2>Próximas locações</h2>
+        <div id="proximas"></div>
+      </div>
+    </section>
 
-<div class="form-section contract-paper" id="contractPreview"><h2>Contrato gerado</h2><p class="section-sub">Preencha os campos e clique em <strong>Gerar contrato</strong>.</p></div>
-</div></section>
-</main><footer class="footer"><div class="container"><strong>J.E. Diversões</strong><br>Painel interno para apoio à emissão de contrato.</div></footer><script src="../assets/js/app.js"></script></body></html>
+    <section id="nova" class="view">
+      <div class="panel">
+        <h2>Nova Locação</h2>
+        <p class="hint">Preencha os dados recebidos do formulário/WhatsApp, escolha pacote, adicionais e gere contrato.</p>
+        <div class="grid">
+          <label>Nº do contrato <input id="contrato" placeholder="JE-2026-0001"></label>
+          <label>Nome/Razão social <input id="nome"></label>
+          <label>CPF/CNPJ <input id="doc"></label>
+          <label>Telefone <input id="telefone"></label>
+          <label>E-mail <input id="email"></label>
+          <label>Endereço <input id="endereco"></label>
+          <label>Data do evento <input id="data" type="date"></label>
+          <label>Horário início <input id="inicio" type="time"></label>
+          <label>Horário retirada <input id="retirada" type="time"></label>
+          <label>Local da instalação <input id="local"></label>
+          <label>Pacote
+            <select id="pacote" onchange="atualizarChecklist()">
+              <option>Bronze</option><option>Prata</option><option>Ouro</option>
+            </select>
+          </label>
+          <label>Valor pacote <input id="valorPacote" type="number" step="0.01"></label>
+          <label>Adicionais
+            <select id="adicionais" multiple onchange="atualizarChecklist()">
+              <option>TV 43"</option><option>TV 32"</option><option>TV 24"</option><option>Tripé para TV</option><option>Kit Iluminação</option><option>Fliperama + TV</option>
+            </select>
+          </label>
+          <label>Valor adicionais <input id="valorAdicionais" type="number" step="0.01"></label>
+          <label>Desconto <input id="desconto" type="number" step="0.01" value="0"></label>
+          <label>Sinal pago <input id="sinal" type="number" step="0.01" value="0"></label>
+          <label>Forma de pagamento
+            <select id="pagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option><option>Transferência</option></select>
+          </label>
+          <label>Condições especiais <textarea id="condicoes" placeholder="Ex.: cliente utilizará TV própria, retirada pela manhã, condomínio etc."></textarea></label>
+        </div>
+        <h3>Checklist automático</h3>
+        <div id="checklist" class="checklist"></div>
+        <div class="actions">
+          <button class="primary" onclick="salvarLocacao()">Salvar locação</button>
+          <button onclick="gerarContrato()">Gerar contrato</button>
+          <button onclick="limparFormulario()">Limpar</button>
+        </div>
+      </div>
+    </section>
+
+    <section id="clientes" class="view"><div class="panel"><h2>Clientes</h2><input id="buscaCliente" placeholder="Pesquisar cliente..." oninput="renderClientes()"><div id="listaClientes"></div></div></section>
+    <section id="agenda" class="view"><div class="panel"><h2>Agenda</h2><div id="listaAgenda"></div></div></section>
+    <section id="contratos" class="view"><div class="panel"><h2>Contratos</h2><div id="listaContratos"></div></div></section>
+    <section id="financeiro" class="view"><div class="panel"><h2>Financeiro</h2><div id="listaFinanceiro"></div></div></section>
+
+    <section id="contratoView" class="view">
+      <div class="contract-toolbar">
+        <button onclick="goView('nova')">Voltar</button>
+        <button class="primary" onclick="window.print()">Imprimir / Salvar PDF</button>
+      </div>
+      <article id="contratoPrint" class="contract"></article>
+    </section>
+  </main>
+
+  <script src="assets/js/app.js"></script>
+</body>
+</html>
