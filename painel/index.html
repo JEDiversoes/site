@@ -1,108 +1,105 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>J.E. Manager | Sistema J.E. Diversões</title>
-  <link rel="stylesheet" href="assets/css/style.css" />
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>J.E. Manager 3.0</title>
+<link rel="stylesheet" href="assets/css/style.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">
-      <div class="brand-mark">🎤</div>
-      <div>
-        <strong>J.E. Manager</strong>
-        <span>Sistema de Gestão</span>
-      </div>
-    </div>
-    <button class="nav active" data-view="dashboard">Dashboard</button>
-    <button class="nav" data-view="nova">Nova Locação</button>
-    <button class="nav" data-view="clientes">Clientes</button>
-    <button class="nav" data-view="agenda">Agenda</button>
-    <button class="nav" data-view="contratos">Contratos</button>
-    <button class="nav" data-view="financeiro">Financeiro</button>
-  </aside>
+<aside>
+  <div class="logo"><span>🎤</span><div><b>J.E. Manager</b><small>Gestão de Locações</small></div></div>
+  <button class="nav active" data-page="dashboard">Dashboard</button>
+  <button class="nav" data-page="locacao">Nova Locação</button>
+  <button class="nav" data-page="clientes">Clientes</button>
+  <button class="nav" data-page="agenda">Agenda</button>
+  <button class="nav" data-page="contratos">Contratos</button>
+  <button class="nav" data-page="financeiro">Financeiro</button>
+</aside>
 
-  <main>
-    <header class="topbar">
-      <div>
-        <h1 id="pageTitle">Dashboard</h1>
-        <p>Controle operacional das locações da J.E. Diversões.</p>
-      </div>
-      <button class="primary" onclick="goView('nova')">+ Nova Locação</button>
-    </header>
+<main>
+<header>
+  <div><h1 id="title">Dashboard</h1><p>Centro de gestão operacional da J.E. Diversões.</p></div>
+  <button class="primary" onclick="openPage('locacao')">+ Nova Locação</button>
+</header>
 
-    <section id="dashboard" class="view active">
-      <div class="cards">
-        <div class="card"><span>Locações</span><strong id="mLocacoes">0</strong></div>
-        <div class="card"><span>Receita prevista</span><strong id="mReceita">R$ 0,00</strong></div>
-        <div class="card"><span>Saldo pendente</span><strong id="mPendente">R$ 0,00</strong></div>
-        <div class="card"><span>Pacote mais usado</span><strong id="mPacote">-</strong></div>
-      </div>
-      <div class="panel">
-        <h2>Próximas locações</h2>
-        <div id="proximas"></div>
-      </div>
-    </section>
+<section id="dashboard" class="page active">
+ <div class="metrics">
+  <div><small>Locações</small><strong id="qtd">0</strong></div>
+  <div><small>Receita</small><strong id="receita">R$ 0,00</strong></div>
+  <div><small>Pendente</small><strong id="pendente">R$ 0,00</strong></div>
+  <div><small>Pacote líder</small><strong id="lider">-</strong></div>
+ </div>
+ <div class="panel"><h2>Próximas locações</h2><div id="prox"></div></div>
+</section>
 
-    <section id="nova" class="view">
-      <div class="panel">
-        <h2>Nova Locação</h2>
-        <p class="hint">Preencha os dados recebidos do formulário/WhatsApp, escolha pacote, adicionais e gere contrato.</p>
-        <div class="grid">
-          <label>Nº do contrato <input id="contrato" placeholder="JE-2026-0001"></label>
-          <label>Nome/Razão social <input id="nome"></label>
-          <label>CPF/CNPJ <input id="doc"></label>
-          <label>Telefone <input id="telefone"></label>
-          <label>E-mail <input id="email"></label>
-          <label>Endereço <input id="endereco"></label>
-          <label>Data do evento <input id="data" type="date"></label>
-          <label>Horário início <input id="inicio" type="time"></label>
-          <label>Horário retirada <input id="retirada" type="time"></label>
-          <label>Local da instalação <input id="local"></label>
-          <label>Pacote
-            <select id="pacote" onchange="atualizarChecklist()">
-              <option>Bronze</option><option>Prata</option><option>Ouro</option>
-            </select>
-          </label>
-          <label>Valor pacote <input id="valorPacote" type="number" step="0.01"></label>
-          <label>Adicionais
-            <select id="adicionais" multiple onchange="atualizarChecklist()">
-              <option>TV 43"</option><option>TV 32"</option><option>TV 24"</option><option>Tripé para TV</option><option>Kit Iluminação</option><option>Fliperama + TV</option>
-            </select>
-          </label>
-          <label>Valor adicionais <input id="valorAdicionais" type="number" step="0.01"></label>
-          <label>Desconto <input id="desconto" type="number" step="0.01" value="0"></label>
-          <label>Sinal pago <input id="sinal" type="number" step="0.01" value="0"></label>
-          <label>Forma de pagamento
-            <select id="pagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option><option>Transferência</option></select>
-          </label>
-          <label>Condições especiais <textarea id="condicoes" placeholder="Ex.: cliente utilizará TV própria, retirada pela manhã, condomínio etc."></textarea></label>
-        </div>
-        <h3>Checklist automático</h3>
-        <div id="checklist" class="checklist"></div>
-        <div class="actions">
-          <button class="primary" onclick="salvarLocacao()">Salvar locação</button>
-          <button onclick="gerarContrato()">Gerar contrato</button>
-          <button onclick="limparFormulario()">Limpar</button>
-        </div>
-      </div>
-    </section>
+<section id="locacao" class="page">
+ <div class="panel">
+  <h2>Assistente de Locação</h2>
+  <div class="steps"><span class="on">1 Cliente</span><span>2 Evento</span><span>3 Pacote</span><span>4 Financeiro</span><span>5 Resumo</span></div>
 
-    <section id="clientes" class="view"><div class="panel"><h2>Clientes</h2><input id="buscaCliente" placeholder="Pesquisar cliente..." oninput="renderClientes()"><div id="listaClientes"></div></div></section>
-    <section id="agenda" class="view"><div class="panel"><h2>Agenda</h2><div id="listaAgenda"></div></div></section>
-    <section id="contratos" class="view"><div class="panel"><h2>Contratos</h2><div id="listaContratos"></div></div></section>
-    <section id="financeiro" class="view"><div class="panel"><h2>Financeiro</h2><div id="listaFinanceiro"></div></div></section>
+  <div class="step active">
+   <h3>1. Cliente</h3>
+   <div class="grid">
+    <label>Contrato<input id="contrato" placeholder="JE-2026-0001"></label>
+    <label>Nome/Razão social<input id="nome"></label>
+    <label>CPF/CNPJ<input id="doc"></label>
+    <label>Telefone<input id="telefone"></label>
+    <label>E-mail<input id="email"></label>
+    <label>Endereço<input id="endereco"></label>
+   </div>
+  </div>
 
-    <section id="contratoView" class="view">
-      <div class="contract-toolbar">
-        <button onclick="goView('nova')">Voltar</button>
-        <button class="primary" onclick="window.print()">Imprimir / Salvar PDF</button>
-      </div>
-      <article id="contratoPrint" class="contract"></article>
-    </section>
-  </main>
+  <div class="step">
+   <h3>2. Evento</h3>
+   <div class="grid">
+    <label>Data<input id="data" type="date"></label>
+    <label>Início<input id="inicio" type="time"></label>
+    <label>Retirada<input id="retirada" type="time"></label>
+    <label>Local da instalação<input id="local"></label>
+    <label>Condições especiais<textarea id="condicoes"></textarea></label>
+   </div>
+  </div>
 
-  <script src="assets/js/app.js"></script>
+  <div class="step">
+   <h3>3. Pacote e adicionais</h3>
+   <div class="grid">
+    <label>Pacote<select id="pacote" onchange="checklist()"><option>Bronze</option><option>Prata</option><option>Ouro</option></select></label>
+    <label>Adicionais<select id="adicionais" multiple onchange="checklist()"><option>TV 43&quot;</option><option>TV 32&quot;</option><option>TV 24&quot;</option><option>Tripé para TV</option><option>Kit Iluminação</option><option>Fliperama + TV</option></select></label>
+   </div>
+   <h4>Checklist automático</h4><div id="checklist"></div>
+  </div>
+
+  <div class="step">
+   <h3>4. Financeiro</h3>
+   <div class="grid">
+    <label>Valor pacote<input id="valorPacote" type="number" step="0.01"></label>
+    <label>Valor adicionais<input id="valorAdicionais" type="number" step="0.01" value="0"></label>
+    <label>Desconto<input id="desconto" type="number" step="0.01" value="0"></label>
+    <label>Sinal<input id="sinal" type="number" step="0.01" value="0"></label>
+    <label>Pagamento<select id="pagamento"><option>PIX</option><option>Dinheiro</option><option>Débito</option><option>Crédito</option></select></label>
+    <label>Status<select id="status"><option>Cadastro recebido</option><option>Contrato enviado</option><option>Sinal recebido</option><option>Evento realizado</option><option>Finalizado</option></select></label>
+   </div>
+  </div>
+
+  <div class="step"><h3>5. Resumo</h3><div id="resumo" class="summary"></div></div>
+
+  <div class="actions">
+   <button onclick="prevStep()">Voltar</button>
+   <button onclick="nextStep()">Avançar</button>
+   <button class="primary" onclick="save()">Salvar Locação</button>
+   <button onclick="contract()">Gerar Contrato</button>
+  </div>
+ </div>
+</section>
+
+<section id="clientes" class="page"><div class="panel"><h2>Clientes</h2><input id="busca" oninput="render()" placeholder="Pesquisar por nome ou telefone"><div id="clientesList"></div></div></section>
+<section id="agenda" class="page"><div class="panel"><h2>Agenda</h2><div id="agendaList"></div></div></section>
+<section id="contratos" class="page"><div class="panel"><h2>Contratos</h2><div id="contratosList"></div></div></section>
+<section id="financeiro" class="page"><div class="panel"><h2>Financeiro</h2><div id="financeiroList"></div></div></section>
+
+<section id="print" class="page"><div class="printbar"><button onclick="openPage('contratos')">Voltar</button><button class="primary" onclick="window.print()">Imprimir / PDF</button></div><article id="doc"></article></section>
+</main>
+<script src="assets/js/app.js"></script>
 </body>
 </html>

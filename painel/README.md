@@ -1,14 +1,3 @@
-# J.E. Manager - Release 2.0
+# J.E. Manager 3.0
 
-Sistema estático para GitHub Pages com:
-- Dashboard
-- Nova Locação
-- Clientes
-- Agenda
-- Contratos
-- Financeiro
-- Contrato imprimível/PDF
-- Salvamento local no navegador via localStorage
-
-Acesse após publicar:
-https://jediversoes.github.io/site/painel/
+Substitua o conteúdo da pasta `painel` por estes arquivos.
